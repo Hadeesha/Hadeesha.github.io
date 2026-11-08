@@ -1,0 +1,3 @@
+# Unpublished draft. Replace this file when the site is intentionally published.
+User-agent: *
+Disallow: /
