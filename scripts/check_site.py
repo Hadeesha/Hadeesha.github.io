@@ -287,8 +287,8 @@ def main() -> int:
             errors.append(f"{label}: lang should be en-CA")
         if not parser.has_viewport:
             errors.append(f"{label}: missing viewport")
-        if not parser.has_noindex:
-            errors.append(f"{label}: missing noindex")
+        if parser.has_noindex:
+            errors.append(f"{label}: public page should not send noindex")
         if not parser.has_skip:
             errors.append(f"{label}: missing skip link")
         if parser.main_ids != ["content"]:
@@ -438,8 +438,12 @@ def main() -> int:
     robots = ROOT / "robots.txt"
     if not robots.exists():
         errors.append("robots.txt is missing")
-    elif "Disallow: /" not in robots.read_text(encoding="utf-8"):
-        errors.append("robots.txt should disallow crawling while this is a draft")
+    else:
+        robots_text = robots.read_text(encoding="utf-8")
+        if re.search(r"(?m)^Disallow:\s*/\s*$", robots_text):
+            errors.append("robots.txt should not disallow the whole public site")
+        if "Sitemap: https://hadeesha.github.io/sitemap.xml" not in robots_text:
+            errors.append("robots.txt should list the sitemap")
 
     check_contrast(errors)
 

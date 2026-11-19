@@ -45,7 +45,7 @@
   }
 
   var pageTitle = document.body.getAttribute("data-page-title");
-  if (cfg.labName) {
+  if (cfg.labName && document.title.indexOf(" | ") === -1) {
     document.title = pageTitle ? pageTitle + " · " + cfg.labName : cfg.labName;
   }
 }());
