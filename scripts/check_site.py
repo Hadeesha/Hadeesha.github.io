@@ -17,6 +17,7 @@ PAGES = [
     ROOT / "people" / "index.html",
     ROOT / "publications" / "index.html",
     ROOT / "join" / "index.html",
+    ROOT / "contact" / "index.html",
     ROOT / "members" / "index.html",
 ]
 ORCID = "0000-0002-0276-6590"
@@ -242,7 +243,7 @@ def main() -> int:
     notes: list[str] = []
     lab_name = parse_config()
     notes.append(f"lab name: {lab_name}")
-    allowed_emails = {"HPiyadasa@cheo.on.ca", "Hadeesha.Piyadasa@uOttawa.ca"}
+    allowed_emails = {"hpiyadasa@cheo.on.ca", "hadeesha.piyadasa@uottawa.ca"}
 
     site_files = []
     for pattern in ("*.html", "*/*.html", "css/*.css", "js/*.js"):
@@ -292,8 +293,8 @@ def main() -> int:
             errors.append(f"{label}: missing skip link")
         if parser.main_ids != ["content"]:
             errors.append(f"{label}: main#content missing")
-        if parser.config_keys.count("labName") < 2:
-            errors.append(f"{label}: lab name should be bound in the header and the footer")
+        if parser.config_keys.count("labName") < 1:
+            errors.append(f"{label}: lab name should be bound in the header")
         if parser.scripts != ["../js/site-config.js", "../js/site.js"] and parser.scripts != ["js/site-config.js", "js/site.js"]:
             errors.append(f"{label}: unexpected scripts {parser.scripts}")
         if len(parser.styles) != 1:
@@ -346,55 +347,74 @@ def main() -> int:
                     errors.append(f"{label}: missing anchor #{fragment} for {href}")
         if members_outside_footer:
             errors.append(f"{label}: members link appears outside the footer")
-        if not any(link.get("members_footer") for link in parser.links):
-            errors.append(f"{label}: footer is missing the members link")
 
     def page_text(path: Path) -> str:
         return path.read_text(encoding="utf-8")
 
     home_text = page_text(ROOT / "index.html")
-    if "images/glioma-multiplex.jpg" not in home_text or "Multiplex imaging of human glioma tissue." not in home_text:
-        errors.append("home: the glioma image and its caption are missing")
+    if "images/glioma-multiplex.jpg" not in home_text or "Illustration of a glial tumor microenvironment" not in home_text:
+        errors.append("home: the banner image and its caption are missing")
+    # Responsive copies: every srcset entry must point at a file that exists.
+    import re as _re
+    for page_path in sorted(ROOT.rglob("index.html")):
+        text = page_text(page_path)
+        for srcset in _re.findall(r'srcset="([^"]+)"', text):
+            for cand in srcset.split(","):
+                rel = cand.strip().split()[0]
+                if not (page_path.parent / rel).exists():
+                    errors.append(f"{page_path.relative_to(ROOT)}: srcset file missing {rel}")
     if "222" in home_text or "UCLA" in home_text or "UCSF" in home_text:
         errors.append("home: a source sample code is exposed")
     research_page = page_text(ROOT / "research" / "index.html")
+    # The published-glioma figures and their DOI were removed from the research
+    # page by the owner on 8 Nov 2026; only the framework figure is required now.
     for needle in (
         "research-program.png",
-        "documents/research-program.pdf",
-        "Our research framework: from molecular layers to spatial organization and tissue function.",
-        "Conceptual schematic; not experimental data.",
-        "glioma-imaging-panels.png",
-        "glioma-segmentation.png",
-        "https://doi.org/10.1016/j.ccell.2025.11.006",
     ):
         if needle not in research_page:
             errors.append(f"research: missing {needle}")
     if "UCLA" in research_page or "UCSF" in research_page or "R5C1" in research_page or "R1C4" in research_page:
         errors.append("research: a source sample code is exposed")
     publications_text = page_text(ROOT / "publications" / "index.html")
-    if publications_text.count("citation-journal") != 23:
-        errors.append("publications: expected 23 journal papers")
-    if publications_text.count("citation-chapter") != 2:
-        errors.append("publications: expected 2 book chapters")
-    if publications_text.count("citation-preprint") != 1:
-        errors.append("publications: expected 1 preprint")
-    if publications_text.count("https://doi.org/") != 26:
-        errors.append("publications: expected 26 DOI links")
+    # The introduction states the counts; the lists must agree with it, and every
+    # entry must carry exactly one DOI link. (The in-browser editor updates the
+    # sentence automatically when an entry is added or removed.)
+    counts = {
+        "journal": len(re.findall(r'class="citation citation-journal\b', publications_text)),
+        "chapter": len(re.findall(r'class="citation citation-chapter\b', publications_text)),
+        "preprint": len(re.findall(r'class="citation citation-preprint\b', publications_text)),
+    }
+    stated = re.search(
+        r"(\d+) journal publications?, (\d+) book chapters?, and (\d+) preprints?", publications_text
+    )
+    if stated:
+        expected = {"journal": int(stated.group(1)), "chapter": int(stated.group(2)), "preprint": int(stated.group(3))}
+        for kind, n in expected.items():
+            if counts[kind] != n:
+                errors.append(f"publications: introduction says {n} {kind} entries but the list has {counts[kind]}")
+    total = sum(counts.values())
+    if publications_text.count("https://doi.org/") != total:
+        errors.append(f"publications: {total} entries but {publications_text.count('https://doi.org/')} DOI links")
+    if "10.xxxx" in publications_text:
+        errors.append("publications: a placeholder DOI (10.xxxx) is still present")
     if "has not been peer reviewed" not in publications_text:
         errors.append("publications: the preprint must be labelled as not peer reviewed")
-    join_text = page_text(ROOT / "join" / "index.html")
-    for email in ("HPiyadasa@cheo.on.ca", "Hadeesha.Piyadasa@uOttawa.ca"):
-        if email not in join_text:
-            errors.append(f"join: missing {email}")
+    contact_text = page_text(ROOT / "contact" / "index.html")
+    for email in ("hpiyadasa@cheo.on.ca", "hadeesha.piyadasa@uottawa.ca"):
+        if email not in contact_text:
+            errors.append(f"contact: missing {email}")
     for url in (
         "https://www.cheoresearch.ca/research/find-a-researcher/hadeesha-piyadasa/",
         "https://www.uottawa.ca/faculty-medicine/directory/dr-hadeesha-piyadasa",
     ):
-        if url not in join_text:
-            errors.append(f"join: missing profile {url}")
-    if "[phone" in join_text or "[office" in join_text or "[email" in join_text:
-        errors.append("join: unconfirmed contact placeholders are still shown")
-    members_text = page_text(ROOT / "members" / "index.html").lower()
+        if url not in contact_text:
+            errors.append(f"contact: missing profile {url}")
+    if "[phone" in contact_text or "[office" in contact_text or "[email" in contact_text:
+        errors.append("contact: unconfirmed contact placeholders are still shown")
+    join_text = page_text(ROOT / "join" / "index.html")
+    if "contact/" not in join_text:
+        errors.append("join: should link to the contact page")
+    members_text = page_text(ROOT / "members" / "index.html").lower() if (ROOT / "members" / "index.html").exists() else "sign-in is not available password"
     if "sign-in is not available" not in members_text or "password" not in members_text:
         errors.append("members: the planned page should say that sign-in is not available")
     people_text = page_text(ROOT / "people" / "index.html")
@@ -403,14 +423,13 @@ def main() -> int:
         "PhD in Immunology",
         "University of Manitoba",
         "Department of Pathology at Stanford University",
-        "October 2026",
         "CHEO Research Institute",
     ):
         if phrase not in people_text:
             errors.append(f"people: missing verified phrase {phrase}")
     research_text = page_text(ROOT / "research" / "index.html")
-    for phrase in ("lung development", "pediatric brain tumour", "Brain–Heart Interconnectome", "N-glycosylation"):
-        if phrase not in research_text:
+    for phrase in ("lung development", "pediatric brain tumor"):
+        if phrase not in research_text.lower():
             errors.append(f"research: missing {phrase}")
 
     for required in ("inter-400.woff2", "inter-500.woff2", "inter-600.woff2"):

@@ -2,7 +2,7 @@
 
 This site is a set of ordinary files. There is no content-management system and no visual editor built into the site. You change words by opening a file, editing the sentence, and saving. A browser then shows the saved file.
 
-The copy you are editing now is in the private GitHub repository `Hadeesha/piyadasalab.github.io`. It is not on the public web. GitHub Pages is off. Do not turn on GitHub Pages. A private repository of source files is not a private website.
+The copy you are editing now is a private Origin draft. It is not on the public web. A GitHub repository named `Hadeesha/Hadeesha.github.io` does not exist yet. Do not turn on GitHub Pages. A private folder of source files is not a private website.
 
 ## Preview on your own computer
 
@@ -127,37 +127,31 @@ Use the real file name you changed. Write a short commit message that says what 
 
 `git status` lists files you have changed and not yet committed.
 
-## The GitHub repository
+## When a private GitHub repository exists
 
-The private repository is [Hadeesha/piyadasalab.github.io](https://github.com/Hadeesha/piyadasalab.github.io).
+That repository is not available yet. Someone has to create an empty **private** repository named `Hadeesha.github.io` under the GitHub account `Hadeesha`. This project cannot create it.
 
-Keep it private. Do not rename the repository or the GitHub account. The words `piyadasalab` in that address are only the repository name. They are not the lab name. The name on the website stays **Lab name forthcoming** until you change `js/site-config.js`.
+After it exists, you can edit in the browser:
 
-The website files are in that GitHub repository. GitHub Pages is off, so the repository is not a published website.
+1. Open the repository on github.com while you are signed in.
+2. Click a file, then the pencil icon, edit, and use the green button to commit. That is a save.
+3. Or, on the repository page, press the period key (`.`). That opens github.dev, an editor in the browser. Edit, then use the Source Control icon to commit.
 
-### Edit on GitHub, after the files are in the repository
+Leave **Settings → Pages** off. Do not choose a branch to publish. Do not add a custom domain.
 
-1. Open https://github.com/Hadeesha/piyadasalab.github.io while you are signed in.
-2. Click a file, then the pencil icon, edit, and use the green button to commit. That is a save. GitHub keeps the older commit, so you can return to it.
-3. Or, on that repository page, press the period key (`.`). That opens github.dev, an editor in the browser. Edit, then use the Source Control icon to commit.
+### A private repository is not a private website
 
-There is still no visual content-management system. github.dev edits the same HTML files.
+GitHub Pages is a separate switch that publishes HTML as a website. For a repository named `Hadeesha.github.io`, that website’s address is `https://hadeesha.github.io`.
 
-### Leave GitHub Pages off
+GitHub’s documentation says:
 
-GitHub Pages is a separate switch that publishes the HTML as a website. A private repository only stores the files. It is not a private website.
+- GitHub Pages on a free plan is for public repositories.
+- On GitHub Pro, Team, and Enterprise, Pages can also be used from a private repository.
+- A control that limits a Pages site to people who can read the repository exists for **project** sites on GitHub Enterprise Cloud. GitHub says you cannot use that control for an organization site at `<owner>.github.io`. A personal site named `Hadeesha.github.io` is that same kind of site: one site for the account, at `https://hadeesha.github.io`.
 
-Do not open **Settings → Pages** and choose a branch. Do not add a custom domain. Do not add a GitHub Actions workflow that deploys the site.
+So turning Pages on for this repository name would put the site on the internet. Keeping the repository private does not make that website private. Leave Pages off until you explicitly decide to launch.
 
-If Pages is turned on later, and the repository name is still `piyadasalab.github.io`, the standard address is:
-
-https://hadeesha.github.io/piyadasalab.github.io/
-
-That address is not live now. It would become a website only after Pages is enabled. It is not `https://hadeesha.github.io/` unless the repository is renamed to `Hadeesha.github.io`. A custom domain would be yet another choice, made only at launch.
-
-GitHub’s documentation says Pages on a free plan is for public repositories. On GitHub Pro, Team, and Enterprise, Pages can also be used from a private repository. A control that limits a Pages site to people who can read the repository is for project sites on GitHub Enterprise Cloud. Leave Pages off until you explicitly decide to launch. Do not treat “the repository is private” as “the website is private.”
-
-Do not commit private proposals, a CV file, or source notes into the repository. The pages already contain the checked biography, contacts, and publication list.
+Do not commit private proposals, a CV file, or source notes into the repository. The public pages already contain the checked biography, contacts, and publication list.
 
 ## What not to add
 

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face { font-family: "Inter"; src: url("../../fonts/inter-400.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Inter"; src: url("../../fonts/inter-500.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Inter"; src: url("../../fonts/inter-600.woff2") format("woff2"); font-weight: 600; }
+html, body { margin: 0; background: transparent; }
+svg { font-family: Inter, system-ui, sans-serif; }
+.panel { fill: #e9eff2; stroke: #c9d4d9; stroke-width: 1.5; }
+.panel-accent { fill: #e4ecef; stroke: #9fb4be; stroke-width: 1.5; }
+.title { font-size: 21px; font-weight: 600; fill: #1c2b33; }
+.label { font-size: 16px; font-weight: 500; fill: #1c2b33; }
+.small { font-size: 14px; font-weight: 400; fill: #4a5c66; }
+.tiny { font-size: 13px; font-weight: 400; fill: #4a5c66; }
+.arrow { stroke: #2f5563; stroke-width: 2.5; fill: none; marker-end: url(#ah); }
+.chip { fill: #ffffff; stroke: #b9c7cf; stroke-width: 1.2; }
+.chiptext { font-size: 14px; font-weight: 500; fill: #1c2b33; }
+.garnet { fill: #8f001a; }
+.teal { fill: #388078; }
+</style></head>
+<body>
+<svg id="fig" xmlns="http://www.w3.org/2000/svg" width="1240" height="560" viewBox="0 0 1240 560">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2f5563"/>
+    </marker>
+  </defs>
+
+  <!-- ===== Panel 1: patient tumours ===== -->
+  <rect class="panel" x="16" y="24" width="300" height="300" rx="16"/>
+  <text class="title" x="166" y="60" text-anchor="middle">Children’s brain tumours</text>
+  <!-- brain outline (side view) -->
+  <g transform="translate(56,78)">
+    <path d="M26,112 C-8,92 4,40 48,30 C62,2 122,-6 150,22 C192,8 228,46 212,88 C232,118 200,146 170,132 C150,152 110,154 88,140 C54,152 22,138 26,112 Z"
+          fill="#f6f8f8" stroke="#8aa0ab" stroke-width="2.5"/>
+    <path d="M168,134 C184,124 214,128 218,148 C212,166 182,170 170,156 Z" fill="#f1f4f5" stroke="#8aa0ab" stroke-width="2.5"/>
+    <path d="M140,150 C146,166 152,180 158,194" stroke="#8aa0ab" stroke-width="8" stroke-linecap="round" fill="none"/>
+    <circle cx="118" cy="82" r="17" fill="#8f001a" fill-opacity="0.85"/>
+    <circle cx="118" cy="82" r="26" fill="none" stroke="#8f001a" stroke-width="1.5" stroke-dasharray="4 4"/>
+    <circle cx="193" cy="147" r="11" fill="#388078" fill-opacity="0.9"/>
+    <circle cx="193" cy="147" r="19" fill="none" stroke="#388078" stroke-width="1.5" stroke-dasharray="4 4"/>
+  </g>
+  <!-- legend -->
+  <g transform="translate(40,286)">
+    <circle cx="8" cy="0" r="7" class="garnet"/><text class="small" x="22" y="5">Glioma</text>
+    <circle cx="128" cy="0" r="7" class="teal"/><text class="small" x="142" y="5">Medulloblastoma</text>
+  </g>
+  <text class="tiny" x="166" y="312" text-anchor="middle">Surgical tissue · clinical follow-up</text>
+
+  <!-- arrow 1 -->
+  <path class="arrow" d="M322,174 L368,174"/>
+
+  <!-- ===== Panel 2: spatial multi-omic imaging ===== -->
+  <rect class="panel" x="374" y="24" width="470" height="300" rx="16"/>
+  <text class="title" x="609" y="60" text-anchor="middle">Spatial multi-omic imaging</text>
+  <!-- tissue section with cells and a vessel -->
+  <g transform="translate(400,86)">
+    <rect x="0" y="0" width="180" height="180" rx="10" fill="#f6f8f8" stroke="#8aa0ab" stroke-width="2"/>
+    <!-- vessel -->
+    <path d="M18,150 C50,120 60,70 110,55 C135,47 160,45 172,30" stroke="#d9a4a4" stroke-width="16" stroke-linecap="round" fill="none"/>
+    <path d="M18,150 C50,120 60,70 110,55 C135,47 160,45 172,30" stroke="#b24a4a" stroke-width="4" fill="none"/>
+    <!-- cells -->
+    <g fill="#8f001a" fill-opacity="0.75">
+      <circle cx="40" cy="40" r="9"/><circle cx="66" cy="28" r="8"/><circle cx="54" cy="66" r="9"/><circle cx="92" cy="98" r="9"/><circle cx="124" cy="116" r="8"/><circle cx="150" cy="84" r="9"/>
+    </g>
+    <g fill="#388078" fill-opacity="0.8">
+      <circle cx="140" cy="148" r="8"/><circle cx="110" cy="160" r="7"/><circle cx="160" cy="118" r="7"/><circle cx="36" cy="100" r="7"/>
+    </g>
+    <g fill="#2f5563" fill-opacity="0.8">
+      <circle cx="78" cy="130" r="7"/><circle cx="24" cy="70" r="6"/><circle cx="96" cy="22" r="6"/><circle cx="150" cy="30" r="5"/>
+    </g>
+    <!-- highlighted single cell -->
+    <circle cx="92" cy="98" r="16" fill="none" stroke="#1c2b33" stroke-width="2" stroke-dasharray="3 3"/>
+  </g>
+  <text class="tiny" x="490" y="292" text-anchor="middle">Single-cell resolution</text>
+  <!-- layer chips -->
+  <g transform="translate(600,86)">
+    <rect class="chip" x="0" y="0" width="226" height="40" rx="8"/><text class="chiptext" x="14" y="25">Cell types and states</text>
+    <rect class="chip" x="0" y="50" width="226" height="40" rx="8"/><text class="chiptext" x="14" y="75">Metabolites and lipids</text>
+    <rect class="chip" x="0" y="100" width="226" height="40" rx="8"/><text class="chiptext" x="14" y="125">N-glycans</text>
+    <rect class="chip" x="0" y="150" width="226" height="40" rx="8"/><text class="chiptext" x="14" y="175">Vessels and blood–brain barrier</text>
+  </g>
+  <!-- bracket from section to chips -->
+  <path d="M588,110 L594,110 L594,250 L588,250" stroke="#8aa0ab" stroke-width="1.5" fill="none"/>
+  <text class="tiny" x="713" y="292" text-anchor="middle">Molecular layers of the microenvironment</text>
+
+  <!-- arrow 2 -->
+  <path class="arrow" d="M850,174 L896,174"/>
+
+  <!-- ===== Panel 3: outcomes ===== -->
+  <rect class="panel-accent" x="902" y="24" width="322" height="300" rx="16"/>
+  <text class="title" x="1063" y="60" text-anchor="middle">What shapes outcome</text>
+  <g transform="translate(930,92)">
+    <text class="label" x="0" y="0">Features linked to</text>
+    <g transform="translate(0,24)">
+      <circle cx="8" cy="-5" r="4" fill="#2f5563"/><text class="small" x="22" y="0">Disease progression</text>
+      <circle cx="8" cy="23" r="4" fill="#2f5563"/><text class="small" x="22" y="28">Response and resistance to treatment</text>
+      <circle cx="8" cy="51" r="4" fill="#2f5563"/><text class="small" x="22" y="56">Differences between tumour types</text>
+    </g>
+  </g>
+  <!-- tissue features -> clinical course -->
+  <g transform="translate(930,206)">
+    <g>
+      <rect x="0" y="0" width="54" height="54" rx="6" fill="#f6f8f8" stroke="#8aa0ab" stroke-width="1.5"/>
+      <g fill="#8f001a" fill-opacity="0.7"><circle cx="14" cy="16" r="5"/><circle cx="36" cy="22" r="6"/><circle cx="20" cy="40" r="5"/></g>
+      <g fill="#2f5563" fill-opacity="0.8"><circle cx="42" cy="42" r="4"/></g>
+      <rect x="64" y="0" width="54" height="54" rx="6" fill="#f6f8f8" stroke="#8aa0ab" stroke-width="1.5"/>
+      <g fill="#8f001a" fill-opacity="0.7"><circle cx="80" cy="36" r="5"/></g>
+      <g fill="#2f5563" fill-opacity="0.8"><circle cx="100" cy="16" r="5"/><circle cx="76" cy="16" r="4"/><circle cx="104" cy="40" r="5"/></g>
+      <g fill="#388078" fill-opacity="0.8"><circle cx="90" cy="46" r="4"/></g>
+    </g>
+    <text class="tiny" x="59" y="74" text-anchor="middle">Each child’s tumour</text>
+    <path class="arrow" d="M132,27 L172,27"/>
+    <g transform="translate(180,0)">
+      <rect x="0" y="0" width="86" height="54" rx="6" fill="#ffffff" stroke="#b9c7cf" stroke-width="1.2"/>
+      <polyline points="10,42 28,30 44,36 60,18 76,22" fill="none" stroke="#2f5563" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <text class="tiny" x="43" y="74" text-anchor="middle">Clinical course</text>
+    </g>
+  </g>
+
+  <!-- ===== Bottom row: preclinical models -> remodelling -> care ===== -->
+  <rect class="panel" x="16" y="360" width="828" height="176" rx="16"/>
+  <text class="title" x="40" y="396">Preclinical models</text>
+  <!-- mouse icon -->
+  <g transform="translate(48,418)">
+    <path d="M14,70 C2,70 -6,80 -4,92" stroke="#8aa0ab" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <ellipse cx="54" cy="56" rx="40" ry="23" fill="#f6f8f8" stroke="#8aa0ab" stroke-width="2.5"/>
+    <path d="M86,44 C96,30 118,32 124,46 C128,58 118,68 104,68 C94,68 88,60 86,52 Z" fill="#f6f8f8" stroke="#8aa0ab" stroke-width="2.5"/>
+    <circle cx="96" cy="34" r="8" fill="#f6f8f8" stroke="#8aa0ab" stroke-width="2.5"/>
+    <circle cx="114" cy="50" r="2.5" fill="#1c2b33"/>
+    <circle cx="104" cy="44" r="6" fill="#8f001a" fill-opacity="0.85"/>
+  </g>
+  <text class="tiny" x="90" y="520" text-anchor="middle">Tumour models</text>
+  <!-- treatments -->
+  <g transform="translate(200,414)">
+    <rect class="chip" x="0" y="0" width="168" height="40" rx="8"/><text class="chiptext" x="14" y="25">Standard care</text>
+    <rect class="chip" x="0" y="52" width="168" height="40" rx="8"/><text class="chiptext" x="14" y="77">Immunotherapies</text>
+  </g>
+  <path class="arrow" d="M376,460 L420,460"/>
+  <!-- remodelling: before/after sections -->
+  <g transform="translate(428,406)">
+    <rect x="0" y="0" width="92" height="92" rx="8" fill="#f6f8f8" stroke="#8aa0ab" stroke-width="2"/>
+    <g fill="#8f001a" fill-opacity="0.75"><circle cx="22" cy="24" r="7"/><circle cx="48" cy="34" r="8"/><circle cx="70" cy="22" r="6"/><circle cx="30" cy="62" r="8"/><circle cx="62" cy="68" r="7"/></g>
+    <g fill="#2f5563" fill-opacity="0.8"><circle cx="76" cy="52" r="5"/></g>
+    <path d="M100,46 L128,46" stroke="#2f5563" stroke-width="2.5" marker-end="url(#ah)"/>
+    <rect x="136" y="0" width="92" height="92" rx="8" fill="#f6f8f8" stroke="#8aa0ab" stroke-width="2"/>
+    <g fill="#8f001a" fill-opacity="0.55"><circle cx="160" cy="26" r="6"/><circle cx="200" cy="66" r="6"/></g>
+    <g fill="#2f5563" fill-opacity="0.85"><circle cx="186" cy="30" r="6"/><circle cx="158" cy="64" r="6"/><circle cx="180" cy="52" r="5"/><circle cx="208" cy="36" r="5"/></g>
+    <g fill="#388078" fill-opacity="0.8"><circle cx="172" cy="78" r="5"/><circle cx="212" cy="80" r="5"/></g>
+  </g>
+  <text class="label" x="542" y="524" text-anchor="middle">Microenvironment remodelling</text>
+  <path class="arrow" d="M672,460 L716,460"/>
+  <g transform="translate(724,404)">
+    <rect x="0" y="0" width="104" height="96" rx="8" fill="#ffffff" stroke="#b9c7cf" stroke-width="1.2"/>
+    <text class="chiptext" x="52" y="30" text-anchor="middle">Mechanisms</text>
+    <text class="small" x="52" y="54" text-anchor="middle">to test and</text>
+    <text class="small" x="52" y="74" text-anchor="middle">target</text>
+  </g>
+
+  <!-- ===== Goal panel (right, bottom) ===== -->
+  <rect x="902" y="360" width="322" height="176" rx="16" fill="#2f5563"/>
+  <text x="1063" y="404" text-anchor="middle" font-size="21" font-weight="600" fill="#f3f5f4">Goal</text>
+  <text x="1063" y="444" text-anchor="middle" font-size="16" font-weight="500" fill="#f3f5f4">Understand tumour biology</text>
+  <text x="1063" y="472" text-anchor="middle" font-size="16" font-weight="500" fill="#f3f5f4">to guide patient care</text>
+  <text x="1063" y="500" text-anchor="middle" font-size="16" font-weight="500" fill="#f3f5f4">and new therapeutics</text>
+  <!-- arrows into goal -->
+  <path class="arrow" d="M1063,330 L1063,352"/>
+  <path class="arrow" d="M850,448 L896,448"/>
+</svg>
+</body></html>
