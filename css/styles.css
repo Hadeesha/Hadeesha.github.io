@@ -1754,7 +1754,14 @@ a:hover { color: var(--accent); }
 .join-sections h2 { border-top: 2px solid #000; }
 .site-footer { border-top: 3px solid #000; background: #000; color: #fff; }
 .footer-nav a, .footer-nav a:visited { color: #fff; font-family: var(--mono); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.08em; }
-.footer-nav a:hover { color: var(--accent); }
+.footer-nav a:hover,
+.footer-nav a:focus-visible {
+  color: #ffffff;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+.footer-nav a:focus-visible { outline-color: #ffffff; }
 .footer-logos { background: #fff; padding: 0.8rem 1rem; width: max-content; max-width: 100%; }
 .pi-photo img { border-radius: 0; }
 .cite-cover img { filter: none; }
@@ -1776,3 +1783,78 @@ a:hover { color: var(--accent); }
 .footer-logos img { filter: brightness(0) invert(1); opacity: 0.95; }
 .page-intro h1.kicker { line-height: 0.95; }
 .page-intro:has(> h1.kicker) { padding-bottom: 1.25rem; }
+
+/* Research figures: tap or click the diagram to read it full size. The inline
+   image stays fitted to the column; the dialog shows the original PNG. */
+.figure-zoom {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: zoom-in;
+}
+.figure-zoom img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.figure-open a {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.figure-lightbox {
+  width: 100vw;
+  height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: #0e0e0e;
+  color: #fff;
+  overflow: auto;
+}
+.figure-lightbox::backdrop {
+  background: rgba(0, 0, 0, 0.88);
+}
+.figure-lightbox-bar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.6rem;
+  background: #0e0e0e;
+}
+.figure-lightbox-close {
+  margin: 0;
+  padding: 0.45rem 0.8rem;
+  border: 2px solid #fff;
+  background: #fff;
+  color: #000;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.figure-lightbox-close:hover,
+.figure-lightbox-close:focus-visible {
+  background: #000;
+  color: #fff;
+}
+.figure-lightbox-image {
+  display: block;
+  width: auto;
+  max-width: none;
+  height: auto;
+  margin: 0 auto 1.5rem;
+  background: #fff;
+}

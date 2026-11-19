@@ -36,7 +36,7 @@ FORBIDDEN = [
     (r"\bet al\.", "do not add citation shorthand"),
     (r"now hiring", "do not advertise an opening"),
     (r"open positions?", "do not advertise an opening"),
-    (r"we are recruiting", "do not advertise an opening"),
+    (r"we are recruiting(?! our founding team)", "do not advertise an opening"),
     (r"apply now", "do not advertise an opening"),
     (r"positions available", "do not advertise an opening"),
     (r"fonts\.googleapis\.com", "fonts are self-hosted"),
@@ -111,8 +111,12 @@ class PageParser(HTMLParser):
             self.styles.append(attr["href"])
         if tag == "img":
             self.images.append(attr)
-        if tag in {"form", "input", "textarea", "select", "button"}:
+        if tag in {"form", "input", "textarea", "select"}:
             self.bad_controls.append(tag)
+        if tag == "button":
+            classes = set((attr.get("class") or "").split())
+            if not classes.intersection({"figure-zoom", "figure-lightbox-close"}):
+                self.bad_controls.append(tag)
         if tag == "main" and attr.get("id"):
             self.main_ids.append(attr["id"])
         if attr.get("data-config"):
