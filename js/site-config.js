@@ -6,5 +6,5 @@
  * Do not add a password, a sign-in form, or a members login to this file.
  */
 window.SITE_CONFIG = {
-  labName: "Piyadasa Spatial Biology Lab"
+  labName: "Piyadasa Spatial Biology Laboratory"
 };

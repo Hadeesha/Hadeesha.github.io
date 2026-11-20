@@ -261,8 +261,12 @@ def main() -> int:
                 errors.append(f"{relative}: {message}")
         if "Stanford" in text and relative != "people/index.html":
             errors.append(f"{relative}: Stanford may appear only on the people page")
-        if path.suffix == ".html" and lab_name in text:
-            errors.append(f"{relative}: lab name is hardcoded; keep it only in js/site-config.js")
+        if path.suffix == ".html":
+            # Titles and social tags carry the public site name. Body copy still
+            # reads it from js/site-config.js.
+            body_html = re.sub(r"<head\b[^>]*>.*?</head>", "", text, count=1, flags=re.I | re.S)
+            if lab_name in body_html:
+                errors.append(f"{relative}: lab name is hardcoded in the page body; keep it in js/site-config.js")
         if path.suffix == ".html":
             emails = set(re.findall(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", text))
             unexpected = emails - allowed_emails
